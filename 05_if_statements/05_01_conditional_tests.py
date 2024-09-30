@@ -1,4 +1,3 @@
-
 # Test 1:
 fruit = 'strawberry'
 print("\nIs fruit == 'stawberry'? I predict True.")
