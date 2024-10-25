@@ -36,23 +36,8 @@ class TestPythonRepos(unittest.TestCase):
 if __name__ == "__main__":
     unittest.main()
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+# The book wanted me to use pytest for this assignment. 
+# However, I ran into some troubles but here is the code anyway.
 
 '''
 import pytest
