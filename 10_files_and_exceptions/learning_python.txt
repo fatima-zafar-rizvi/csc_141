@@ -1,0 +1,5 @@
+In Python you can create variables to store data.
+In Python you can use functions to encapsulate reusable code.
+In Python you can work with different data structures like lists and dictionaries.
+In Python you can generate random numbers using the random module.
+In Python you can read and write files for data persistence.
