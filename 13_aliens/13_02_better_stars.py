@@ -19,8 +19,8 @@ NUM_STARS = 50  # Number of stars
 MAX_SPEED = 3  # Maximum movement speed
 
 try:
-    star_image = pygame.image.load('images/star.png')  # Ensure 'star.png' is in the same directory
-    star_image = pygame.transform.scale(star_image, (STAR_WIDTH, STAR_HEIGHT))  # Resize the image
+    star_image = pygame.image.load('images/star.png')  
+    star_image = pygame.transform.scale(star_image, (STAR_WIDTH, STAR_HEIGHT))  
 except pygame.error as e:
     print(f"Error loading star image: {e}")
     sys.exit()

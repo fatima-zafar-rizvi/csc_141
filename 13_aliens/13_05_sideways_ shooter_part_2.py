@@ -35,8 +35,9 @@ ALIEN_WIDTH = 40
 ALIEN_HEIGHT = 40
 ALIEN_SPEED = 2
 try:
-    alien_image = pygame.image.load('images/alien.png')  # Load the alien image
-    alien_image = pygame.transform.scale(alien_image, (ALIEN_WIDTH, ALIEN_HEIGHT))  # Scale to the desired size
+    alien_image = pygame.image.load('images/alien.png') 
+    alien_image = pygame.transform.scale(alien_image, (ALIEN_WIDTH, 
+                                                       ALIEN_HEIGHT))  
 except pygame.error as e:
     print(f"Error loading alien image: {e}")
     sys.exit()
@@ -121,7 +122,7 @@ while True:
     for bullet in bullets:
         pygame.draw.rect(screen, BULLET_COLOR, bullet)  # Draw the bullets
     for alien in aliens:
-        screen.blit(alien_image, (alien.x, alien.y))  # Draw the aliens using the alien image
+        screen.blit(alien_image, (alien.x, alien.y))  
 
     # Update the display
     pygame.display.flip()
