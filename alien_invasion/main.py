@@ -76,9 +76,6 @@ class DeadpoolInvasion:
         # Make the Play button.
         self.play_button = Button(self, "Play")
 
-        # Learderboard button
-        self.leaderboard_button = Button(self, "Leaderboard")
-
         
 
     def run_game(self):
@@ -199,7 +196,6 @@ class DeadpoolInvasion:
             for enemies in collisions.values():
                 self.stats.score += self.settings.enemy_points * len(enemies)
             self.sb.prep_score()
-            self.sb.check_high_score()
 
         if not self.enemies:
             # Destroy existing bullets and create new fleet
@@ -240,7 +236,7 @@ class DeadpoolInvasion:
 
     def _check_play_button(self, mouse_pos):
         '''Start a new game when the player clicks Play'''
-        ''' button_clicked = self.play_button.rect.collidepoint(mouse_pos)
+        button_clicked = self.play_button.rect.collidepoint(mouse_pos)
         if button_clicked and not self.game_active:
             # Reset the game settings.
             self.settings.initialize_dynamic_settings()
@@ -259,54 +255,7 @@ class DeadpoolInvasion:
             self.deadpool.center_deadpool()
 
             # Hide the mouse cursor.
-            pygame.mouse.set_visible(False)'''
-        
-        if self.play_button.rect.collidepoint(mouse_pos) and not self.game_active:
-            # Start a new game
-            self.settings.initialize_dynamic_settings()
-            self.stats.reset_stats()
-            self.sb.prep_score()
-            self.sb.prep_level()
-            self.sb.prep_deadpools()
-            self.game_active = True
-            self.bullets.empty()
-            self.enemies.empty()
-            self._create_fleet()
-            self.deadpool.center_deadpool()
             pygame.mouse.set_visible(False)
-        elif self.leaderboard_button.rect.collidepoint(mouse_pos):
-            # Show the leaderboard
-            self._show_leaderboard()
-
-
-    def _show_leaderboard(self):
-        """Display the high scores."""
-        self.screen.fill(self.settings.bg_color)
-    
-        # Display title
-        font = pygame.font.SysFont(None, 48)
-        title = font.render("Leaderboard", True, (255, 255, 255))
-        title_rect = title.get_rect(center=(self.settings.screen_width // 2, 50))
-        self.screen.blit(title, title_rect)
-
-        # Display scores
-        font = pygame.font.SysFont(None, 36)
-        y_offset = 100
-        for index, score in enumerate(self.stats.high_scores, 1):
-            score_text = font.render(f"{index}. {score}", True, (255, 255, 255))
-            score_rect = score_text.get_rect(center=(self.settings.screen_width // 2, y_offset))
-            self.screen.blit(score_text, score_rect)
-            y_offset += 40
-
-        pygame.display.flip()
-
-        # Wait for the user to exit the leaderboard
-        while True:
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    sys.exit()
-                elif event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
-                    return
 
 
 
@@ -325,26 +274,6 @@ class DeadpoolInvasion:
 
     def _deadpool_hit(self):
         """Respond to the deadpool being hit by enemy."""
-        '''if self.stats.deadpools_left > 0:
-        
-            # Decrement deadpools_left, and update scoreboard.
-            self.stats.deadpools_left -= 1
-            self.sb.prep_deadpools()
-
-            # Get rid of any remaining bullets and enemies.
-            self.bullets.empty()
-            self.enemies.empty()
-
-            # Create a new fleet and center the deadpool.
-            self._create_fleet()
-            self.deadpool.center_deadpool()
-
-            # Pause.
-            sleep(0.5)
-        else:
-            self.game_active = False
-            pygame.mouse.set_visible(True)'''
-        
         if self.stats.deadpools_left > 0:
             self.stats.deadpools_left -= 1
             self.sb.prep_deadpools()
@@ -354,7 +283,7 @@ class DeadpoolInvasion:
             self.deadpool.center_deadpool()
             sleep(0.5)
         else:
-            self.stats.save_high_score(self.stats.score)  # Save score if it's high
+            # Just end the game without saving high scores
             self.game_active = False
             pygame.mouse.set_visible(True)
 

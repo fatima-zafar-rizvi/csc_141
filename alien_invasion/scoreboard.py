@@ -13,12 +13,11 @@ class Scoreboard:
         self.stats = dp_game.stats
         
         # Font settings for scoring information.
-        self.text_color = (30, 30, 30)
+        self.text_color = (255, 255, 255)
         self.font = pygame.font.SysFont(None, 48)
 
         # Prepare the initial score images.
         self.prep_score()
-        self.prep_high_score()
         self.prep_level()
         self.prep_deadpools()
 
@@ -37,37 +36,8 @@ class Scoreboard:
     def show_score(self):
         """Draw scores, level, and ships to the screen."""
         self.screen.blit(self.score_image, self.score_rect)
-        self.screen.blit(self.high_score_image, self.high_score_rect)
         self.screen.blit(self.level_image, self.level_rect)
         self.deadpools.draw(self.screen)
-
-    def prep_high_score(self):
-        """Turn the high score into a rendered image."""
-        # Get the highest score from the list
-        high_score = max(self.stats.high_scores)
-        high_score = round(high_score, -1)
-        high_score_str = f"{high_score:,}"
-        self.high_score_image = self.font.render(high_score_str, True, 
-                                                 self.text_color, 
-                                                 self.settings.bg_color)
-
-        # Center the high score at the top of the screen
-        self.high_score_rect = self.high_score_image.get_rect()
-        self.high_score_rect.centerx = self.screen_rect.centerx
-        self.high_score_rect.top = self.score_rect.top
-
-
-    def check_high_score(self):
-        """Check to see if there's a new high score."""
-        # Check if the current score exceeds the highest score
-        if self.stats.score > max(self.stats.high_scores):
-            # Add the new score to the high scores list
-            self.stats.high_scores.append(self.stats.score)
-            # Keep only the top 5 scores, sorted in descending order
-            self.stats.high_scores = sorted(self.stats.high_scores, reverse=True)[:5]
-            # Re-render the high score display
-            self.prep_high_score()
-
 
     def prep_level(self):
         """Turn the level into a rendered image."""
