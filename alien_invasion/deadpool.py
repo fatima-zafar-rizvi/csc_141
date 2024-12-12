@@ -1,22 +1,25 @@
 import pygame
-from settings import Settings
+from pygame.sprite import Sprite
+# from settings import Settings
 
-class Deadpool:
+class Deadpool(Sprite):
     '''A class to manage Deadpool'''
 
     def __init__(self, dp_game):
+        """Initialize the ship and set its starting position."""
+        super().__init__()
         self.screen = dp_game.screen
         self.settings = dp_game.settings
+        # self.settings = dp_game.settings
         self.screen_rect = dp_game.screen.get_rect()
 
         # Load Deadpool image and get its rect
-        self.image = pygame.image.load('images/deadpool.bmp')
-        DEFAULT_IMAGE_SIZE = (170, 170)
-        self.image = pygame.transform.scale(self.image, DEFAULT_IMAGE_SIZE)
-        
+        self.image = pygame.image.load('images/deadpool.png')
+        ''''''
+        self.image = pygame.transform.scale(self.image, (50, 50))
         self.image = self.image.convert()
         self.image.set_colorkey(self.image.get_at((1, 1)))
-
+        ''''''
         self.rect = self.image.get_rect()
 
         # Start each Deadpool at the bottom center of the screen
@@ -31,10 +34,11 @@ class Deadpool:
 
     def update(self):
         '''Update Deadpool's position based on the movement flags'''
-        # Update Deadpool's x value, not the rect
+        # Move right if the flag is set and within the screen's right boundary
         if self.moving_right and self.rect.right < self.screen_rect.right:
             self.x += self.settings.deadpool_speed
 
+        # Move left if the flag is set and within the screen's left boundary
         if self.moving_left and self.rect.left > 0:
             self.x -= self.settings.deadpool_speed
 
